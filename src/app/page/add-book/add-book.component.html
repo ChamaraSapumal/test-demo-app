@@ -1,0 +1,141 @@
+<app-navbar></app-navbar>
+
+<div class="container pb-5 mb-3">
+    <div class="row g-5">
+        <div class="col-md-5 col-lg-4 order-md-last">
+            <h4 class="d-flex justify-content-between align-items-center mb-3">
+                <span class="text-primary">Verification <i class="bi bi-patch-check"></i></span>
+                <span class="badge bg-primary rounded-pill">{{selectedItems}}</span>
+            </h4>
+            <ul class="list-group mb-3">
+                <li class="list-group-item d-flex justify-content-between lh-sm">
+                    <div>
+                        <h6 class="my-0">{{bookObj.isbn}}</h6>
+                        <small class="text-body-secondary">ISBN</small>
+                    </div>
+                    <input class="form-check-input" type="checkbox" id="isbn" [(ngModel)]=" isCheckedIsbn"
+                        (change)="checkSelectedItems()">
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-sm">
+                    <div>
+                        <h6 class="my-0">{{bookObj.title}}</h6>
+                        <small class="text-body-secondary">Book title</small>
+                    </div>
+                    <input class="form-check-input" type="checkbox" value=1 id="title" [(ngModel)]="isCheckedTitle"
+                        (change)="checkSelectedItems()">
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-sm">
+                    <div>
+                        <h6 class="my-0">{{bookObj.author}}</h6>
+                        <small class="text-body-secondary">Author's name</small>
+                    </div>
+                    <input class="form-check-input" type="checkbox" id="author" [(ngModel)]="isCheckedAuthor"
+                        (change)="checkSelectedItems()">
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                    <div class="text-success">
+                        <h6 class="my-0">{{bookObj.category}}</h6>
+                        <small>Category</small>
+                    </div>
+                    <input class="form-check-input" type="checkbox" value=1 id="category"
+                        [(ngModel)]="isCheckedCategory" (change)="checkSelectedItems()">
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                    <div class="text-success">
+                        <h6 class="my-0">{{bookObj.qty}}</h6>
+                        <small>Qty</small>
+                    </div>
+                    <input class="form-check-input" type="checkbox" value=1 id="qty" [(ngModel)]="isCheckedQty"
+                        (change)="checkSelectedItems()">
+                </li>
+            </ul>
+
+
+            <form class="card p-2">
+                <div class="d-grid gap-2 col-12 mx-auto">
+                    <button class="btn btn-primary" type="button" (click)="verifyInformation()">Verify</button>
+                    <button class="btn btn-outline-primary" type="button" (click)="addBook()"
+                        [disabled]="registerButtonDisable()">Register</button>
+                </div>
+            </form>
+
+        </div>
+
+
+        <div class="col-md-7 col-lg-8">
+            <h4 class="mb-3">Book information</h4>
+            <form class="needs-validation" novalidate>
+                <div class="row g-3">
+                    <div class="col-12">
+                        <label for="isbn" class="form-label">ISBN <span class="text-danger">&ast;</span></label>
+                        <input type="number" class="form-control" id="isbn" [(ngModel)]="bookObj.isbn"
+                            [ngModelOptions]="{standalone:true}">
+                        <div class="invalid-feedback">
+                            Please enter a valid ISBN address for book updates.
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="title" class="form-label">Book title <span class="text-danger">&ast;</span></label>
+                        <input type="text" class="form-control" id="title" [(ngModel)]="bookObj.title"
+                            [ngModelOptions]="{standalone:true}">
+                        <div class="invalid-feedback">
+                            Please enter a valid title for book name.
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="firstName" class="form-label">Author's name <span
+                                class="text-danger">&ast;</span></label>
+                        <input type="text" class="form-control" id="firstName" required [(ngModel)]="bookObj.author"
+                            [ngModelOptions]="{standalone:true}">
+                        <div class="invalid-feedback">
+                            Valid first name is required.
+                        </div>
+                    </div>
+
+                    <div class="col-sm-10">
+                        <label for="category" class="form-label">Category <span class="text-danger">&ast;</span></label>
+                        <select class="form-select" id="category" required [(ngModel)]="bookObj.category"
+                            [ngModelOptions]="{standalone:true}">
+                            <option value="">Choose...</option>
+                            <option value="Adventure">Adventure</option>
+                            <option value="Biography">Biography</option>
+                            <option value="Classics">Classics</option>
+                            <option value="Fantasy">Fantasy</option>
+                            <option value="Fiction">Fiction</option>
+                            <option value="Historical Fiction">Historical Fiction</option>
+                            <option value="Horror">Horror</option>
+                            <option value="Humor">Humor</option>
+                            <option value="Literature">Literature</option>
+                            <option value="Memoir">Memoir</option>
+                            <option value="Mystery">Mystery</option>
+                            <option value="Non-fiction">Non-fiction</option>
+                            <option value="Post-apocalyptic">Post-apocalyptic</option>
+                            <option value="Psychology">Psychology</option>
+                            <option value="Romance">Romance</option>
+                            <option value="Science Fiction">Science Fiction</option>
+                            <option value="Self-help">Self-help</option>
+                            <option value="Thriller">Thriller</option>
+                            <option value="Young Adult">Young Adult</option>
+
+                        </select>
+                        <div class="invalid-feedback">
+                            Please select a valid category.
+                        </div>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <label for="qty" class="form-label">Qty <span class="text-danger">&ast;</span></label>
+                        <input type="number" class="form-control" id="qty" [(ngModel)]="bookObj.qty"
+                            [ngModelOptions]="{standalone:true}">
+                        <div class="invalid-feedback">
+                            Please enter a valid email address for shipping updates.
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

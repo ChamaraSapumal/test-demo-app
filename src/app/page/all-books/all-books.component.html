@@ -1,0 +1,137 @@
+<app-navbar></app-navbar>
+<div class="container">
+    <h2>All books</h2>
+    <div class="table-responsive small">
+        <table class="table table-striped table-sm" *ngIf="bookList">
+            <thead>
+                <tr>
+                    <th scope="col">#ID</th>
+                    <th scope="col">ISBN</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Author</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">QTY</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let book of bookList;">
+                    <td>#{{book.id}}</td>
+                    <td>{{book.isbn}}</td>
+                    <td>{{book.title}}</td>
+                    <td>{{book.author}}</td>
+                    <td>{{book.category}}</td>
+                    <td>{{book.qty}}</td>
+                    <td>
+                        <button (click)="setSelectedBook(book)" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#updateModal"><i class="bi bi-pencil-square"></i></button>
+                    </td>
+                    <td>
+                        <button (click)="setSelectedBook(book)" class="btn btn-outline-danger" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal"><i class="bi bi-trash3"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal delete -->
+<div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="modal-body p-4 text-center">
+                    <h5 class="mb-0">Do you want to delete <strong>{{selectedBook?.title}}</strong></h5>
+                    <p class="mb-0">You can alter your record deletion choice in settings.</p>
+                </div>
+                <div class="modal-footer flex-nowrap p-0">
+                    <button (click)="removeBook()" type="button"
+                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"
+                        data-bs-dismiss="modal"><strong>Yes,
+                            delete</strong></button>
+                    <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"
+                        data-bs-dismiss="modal">No thanks</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal update -->
+<div class="modal fade" id="updateModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="modal-header p-5 pb-4 border-bottom-0">
+                    <h1 class="fw-bold mb-0 fs-2">Update book details</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-5 pt-0">
+                    <form class="">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control rounded-3" id="floatingInput"
+                                [(ngModel)]="selectedBook && selectedBook.isbn" [ngModelOptions]="{standalone:true}">
+                            <label for="floatingInput">ISBN</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control rounded-3" id="floatingPassword"
+                                [(ngModel)]="selectedBook && selectedBook.title" [ngModelOptions]="{standalone:true}">
+                            <label for="floatingPassword">Title</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control rounded-3" id="floatingPassword"
+                                [(ngModel)]="selectedBook && selectedBook.author" [ngModelOptions]="{standalone:true}">
+                            <label for="floatingPassword">Author</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control rounded-3" id="floatingPassword"
+                                [(ngModel)]="selectedBook && selectedBook.category"
+                                [ngModelOptions]="{standalone:true}">
+                            <label for="floatingPassword">Category</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="number" class="form-control rounded-3" id="floatingPassword"
+                                [(ngModel)]="selectedBook && selectedBook.qty" [ngModelOptions]="{standalone:true}">
+                            <label for="floatingPassword">QTY</label>
+                        </div>
+                        <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit"
+                            data-bs-dismiss="modal" aria-label="Close" data-bs-toggle="modal"
+                            data-bs-target="#confirmModal">Update</button>
+                        <button class="w-100 mb-2 btn btn-lg rounded-3 btn-outline-primary" type="submit"
+                            data-bs-dismiss="modal" aria-label="Close">No, thanks</button>
+                        <hr class="my-4">
+                        <small class="text-body-secondary">By clicking Update, you also change the database info.
+                        </small>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- update modal confirmation -->
+<div class="modal fade" id="confirmModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="modal-body p-4 text-center">
+                    <h5 class="mb-0">Do you want to update this record</h5>
+                    <p class="mb-0">You can alter your record deletion choice in settings.</p>
+                </div>
+                <div class="modal-footer flex-nowrap p-0">
+                    <button (click)="createBook()" type="button"
+                        class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"
+                        data-bs-dismiss="modal"><strong>Yes,
+                            update</strong></button>
+                    <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"
+                        data-bs-dismiss="modal">No thanks</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
